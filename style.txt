@@ -1,0 +1,149 @@
+  <head>
+    <title>Watt App</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .rectangleleft {
+        position: relative;
+        width: 20vw;
+        height: 81vh;
+        background-color: white;
+        border: 0.8vw solid black;
+        text-align: center;
+        margin: 10vw;
+      }
+      .rectangleright {
+        position: relative;
+        width: 20vw;
+        height: 81vh;
+        background-color: white;
+        border: 0.8vw solid black;
+        text-align: center;
+        margin: 10vw;
+      }
+      .displaytime {
+        position: absolute;
+        top: @%;
+        width: 20%;
+        height: 10vh;
+        left: 40%;
+        background-color: rgba(0,0,0,0);
+        font-weight: bold;
+        text-align: left;
+        color: red;
+      }
+      .one {
+        position: absolute;
+        top: 4%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .five {
+        position: absolute;
+        top: 21%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .nine {
+        position: absolute;
+        top: 38%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .onepm {
+        position: absolute;
+        top: 54%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .fivepm {
+        position: absolute;
+        top: 71%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .ninepm {
+        position: absolute;
+        top: 88%;
+        left: -20%;
+        background: rgba(0,0,0,0);
+        text-align:right;
+        width: 15%;
+      }
+      .line {
+        position: absolute;
+        top: @%;
+        height: 0.5%;
+        width: 100%;
+        background-color: red;
+      }
+      .green {
+        position: fixed;
+        top: 7.5vh;
+        right: 3vw;
+        height: 7vh;
+        width: 7vw;
+        background-color: rgba(50,255,10,0.3);
+        color: black;
+        text-align: center;
+      }
+      .red {
+        position: fixed;
+        top: 15.5vh;
+        right: 3vw;
+        height: 7vh;
+        width: 7vw;
+        background-color: rgba(255,0,0,0.3);
+        color: black;
+        text-align: center;
+      }
+      .userstats{
+        position: fixed;
+        top: 23vh;
+        right: 3vw;
+        height: 7vh;
+        width: 7vw;
+        color: black;
+        text-align: center;
+      }
+      @
+    </style>
+  </head>
+  <body>
+    <div class="rectangleleft">
+      Today
+      @
+      <div class="line"></div>
+      <div class="one">1AM</div>
+      <div class="five">5AM</div>
+      <div class="nine">9AM</div>
+      <div class="onepm">1PM</div>
+      <div class="fivepm">5PM</div>
+      <div class="ninepm">9PM</div>
+      <div class="displaytime">@</div>
+    </div>
+    <div class="userstats">So far, @ people have used Watt App.</br>(You were number @)</div>
+    WATT</br>APP
+    <div class="rectangleright">
+      Tomorrow
+      @
+    </div>
+    <div class="green">Use Electricity</div>
+    <div class="red">Don't Use Electricity</div>
+  </body>
