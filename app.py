@@ -3,8 +3,11 @@ import statistics
 import random
 from datetime import datetime, timedelta
 from flask import Flask, request
+from pathlib import Path
 
-with open('style.txt') as f:
+THIS_FOLDER = Path(__file__).parent.resolve()
+
+with open(THIS_FOLDER / "style.txt") as f:
     lines = f.readlines()
 lines = (" ").join(lines)
 
@@ -64,7 +67,7 @@ def makebox(color, side, data, inclusivity, sensitivity):
         elif(side == "left" and color == "green"):
             key = random.randint(1,9999999)
             insertclasses.append(".line"+str(key)+" {position: absolute;top: "+str(position)+"%;height: "+str(height)+"%;width: 100%;background-color: rgba(50,255,10,0.3);}")
-            insertdivs.append('<div class="line'+str(key)+'"></div>')            
+            insertdivs.append('<div class="line'+str(key)+'"></div>')
         elif(side == "right" and color == "green"):
             key = random.randint(1,9999999)
             insertclasses.append(".line"+str(key)+" {position: absolute;top: "+str(position)+"%;height: "+str(height)+"%;width: 100%;background-color: rgba(50,255,10,0.3);;}")
@@ -148,8 +151,8 @@ def home():
     # print(cur.fetchall())
     # cur.close()
 
-    totalusers = "1"
     usernumber = "1"
+    totalusers = "1"
 
     now = datetime.now()
     nowplus = now + timedelta(hours = 10)
@@ -158,8 +161,8 @@ def home():
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
 
     dayofweek = formatted_now.split(",")[0]
-    leftfile = pandas.read_csv(dayswitch(dayofweek)[0])
-    rightfile = pandas.read_csv(dayswitch(dayofweek)[1])
+    leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
+    rightfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[1])
 
     time = ((formatted_now.split(" ")[5]).split(":"))
     timeseconds = (int(time[0])*60*60)+(int(time[1])*60)+(int(time[2]))
@@ -169,7 +172,7 @@ def home():
     day1insertclassstringgreen, day1insertdivsstringgreen = makebox("green","left",leftfile,1,3)
     day2insertclassstringred, day2insertdivsstringred = makebox("red","right",rightfile,0.5,3)
     day2insertclassstringgreen, day2insertdivsstringgreen = makebox("green","right",rightfile,1,3)
-    
+
     implemented = stringinserter(lines,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
 
     return implemented
