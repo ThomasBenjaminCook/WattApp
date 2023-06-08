@@ -4,6 +4,7 @@ import random
 from datetime import datetime, timedelta
 from flask import Flask, request
 from pathlib import Path
+from flask_sqlalchemy import SQLAlchemy
 
 THIS_FOLDER = Path(__file__).parent.resolve()
 
@@ -98,13 +99,17 @@ def dayswitch(day):
         return "sundayspredictions.csv", "mondayspredictions.csv"
 
 app = Flask(__name__)
+SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+    username="ThomasAppMaker",
+    password="P_R5nvjG5DV4Vd6",
+    hostname="ThomasAppMaker.mysql.pythonanywhere-services.com",
+    databasename="ThomasAppMaker$ipcollect",
+)
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-#app.config['MYSQL_HOST'] = '34.133.73.29'
-#app.config['MYSQL_USER'] = 'ThomasDatabase'
-#app.config['MYSQL_PASSWORD'] = "ThomasDatabase12345!"
-#app.config['MYSQL_DB'] = 'visitors'
-
-#mysql = MySQL(app)
+db = SQLAlchemy(app)
 
 #with app.app_context():
     #conn = mysql.connection
