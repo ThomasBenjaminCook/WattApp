@@ -3,7 +3,6 @@ import statistics
 import random
 from datetime import datetime, timedelta
 from flask import Flask, request
-from flask_mysqldb import MySQL
 
 with open('style.txt') as f:
     lines = f.readlines()
@@ -97,12 +96,12 @@ def dayswitch(day):
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = '34.133.73.29'
-app.config['MYSQL_USER'] = 'ThomasDatabase'
-app.config['MYSQL_PASSWORD'] = "ThomasDatabase12345!"
-app.config['MYSQL_DB'] = 'visitors'
+#app.config['MYSQL_HOST'] = '34.133.73.29'
+#app.config['MYSQL_USER'] = 'ThomasDatabase'
+#app.config['MYSQL_PASSWORD'] = "ThomasDatabase12345!"
+#app.config['MYSQL_DB'] = 'visitors'
 
-mysql = MySQL(app)
+#mysql = MySQL(app)
 
 #with app.app_context():
     #conn = mysql.connection
@@ -113,41 +112,44 @@ mysql = MySQL(app)
     #conn.commit()
     #cur.close()
 
-def ip_exists(ip):
-    conn = mysql.connection
-    cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
-    result = cur.fetchone()[0]
-    cur.close()
-    return result > 0
+#def ip_exists(ip):
+#    conn = mysql.connection
+#    cur = conn.cursor()
+#    cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
+#    result = cur.fetchone()[0]
+#    cur.close()
+#    return result > 0
 
 @app.route("/")
 def home():
-    if request.headers.getlist("X-Forwarded-For"):
-        ip = request.headers.getlist("X-Forwarded-For")[0]
-    else:
-        ip = request.remote_addr
-    if not ip_exists(ip):
-        conn = mysql.connection
-        cur = conn.cursor()
-        cur.execute("INSERT INTO visitors (ip) VALUES (%s)", (ip,))
-        conn.commit()
-        cur.close()
+    # if request.headers.getlist("X-Forwarded-For"):
+    #     ip = request.headers.getlist("X-Forwarded-For")[0]
+    # else:
+    #     ip = request.remote_addr
+    # if not ip_exists(ip):
+    #     conn = mysql.connection
+    #     cur = conn.cursor()
+    #     cur.execute("INSERT INTO visitors (ip) VALUES (%s)", (ip,))
+    #     conn.commit()
+    #     cur.close()
 
-    conn = mysql.connection
-    cur = conn.cursor()
-    cur.execute('SELECT COUNT(DISTINCT ip) FROM visitors')
-    result = cur.fetchone()
-    totalusers = str(result[0])
-    cur.close()
+    # conn = mysql.connection
+    # cur = conn.cursor()
+    # cur.execute('SELECT COUNT(DISTINCT ip) FROM visitors')
+    # result = cur.fetchone()
+    # totalusers = str(result[0])
+    # cur.close()
 
-    conn = mysql.connection
-    cur = conn.cursor()
-    cur.execute('SELECT id FROM visitors WHERE ip = (%s)', (ip,))
-    usernumber = str(cur.fetchone()).split("(")[1].split(",")[0]
-    cur.execute("SELECT * FROM visitors")
-    print(cur.fetchall())
-    cur.close()
+    # conn = mysql.connection
+    # cur = conn.cursor()
+    # cur.execute('SELECT id FROM visitors WHERE ip = (%s)', (ip,))
+    # usernumber = str(cur.fetchone()).split("(")[1].split(",")[0]
+    # cur.execute("SELECT * FROM visitors")
+    # print(cur.fetchall())
+    # cur.close()
+
+    totalusers = "1"
+    usernumber = "1"
 
     now = datetime.now()
     nowplus = now + timedelta(hours = 10)
