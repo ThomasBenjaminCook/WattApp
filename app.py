@@ -125,7 +125,7 @@ def home():
     else:
         theip = request.remote_addr
 
-    datasource.List.query.delete()
+    datasource.query().delete()
     datasource.session.commit()
 
     allips = List.query.all()
