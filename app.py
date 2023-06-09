@@ -125,9 +125,6 @@ def home():
     else:
         theip = request.remote_addr
 
-    datasource.session.query(List).delete()
-    datasource.session.commit()
-
     allips = List.query.all()
     youriprow = List.query.filter_by(ip=theip).first()
 
@@ -137,8 +134,8 @@ def home():
         datasource.session.commit()
 
     youriprow = List.query.filter_by(ip=theip).first()
-    
-    usernumber = str(youriprow.id)
+
+    usernumber = str(youriprow.id-22)
     totalusers = str(len(allips))
 
     now = datetime.now()
