@@ -137,6 +137,8 @@ def home():
     datasource.session.add(iptoinsert)
     datasource.session.commit()
 
+    columnaccess = List.query.filter_by(ip='103.131.14.19').all()
+
     # if not ip_exists(ip):
     #     conn = datasource.connection
     #     cur = conn.cursor()
@@ -161,6 +163,8 @@ def home():
 
     usernumber = "1"
     totalusers = "1"
+
+    totalusers = len(columnaccess)
 
     now = datetime.now()
     nowplus = now + timedelta(hours = 10)
