@@ -111,14 +111,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 datasource = SQLAlchemy(app)
 
-# def ip_exists(ip):
-#     conn = datasource.connection
-#     cur = conn.cursor()
-#     cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
-#     result = cur.fetchone()[0]
-#     cur.close()
-#     return result > 0
-
 class List(datasource.Model):
     __tablename__ = "ipness"
     id = datasource.Column(datasource.Integer, primary_key=True)
@@ -133,36 +125,15 @@ def home():
     else:
         theip = request.remote_addr
 
-    iptoinsert = List(ip=theip)
-    datasource.session.add(iptoinsert)
-    datasource.session.commit()
-
     allips = List.query.all()
     youriprow = List.query.filter_by(ip=theip).first()
+
+    if youriprow is None:
+        iptoinsert = List(ip=theip)
+        datasource.session.add(iptoinsert)
+        datasource.session.commit()
+
     usernumber = str(youriprow.id)
-
-    # if not ip_exists(ip):
-    #     conn = datasource.connection
-    #     cur = conn.cursor()
-    #     cur.execute("INSERT INTO ipness (ip) VALUES (%s)", (ip,))
-    #     conn.commit()
-    #     cur.close()
-
-    # conn = mysql.connection
-    # cur = conn.cursor()
-    # cur.execute('SELECT COUNT(DISTINCT ip) FROM visitors')
-    # result = cur.fetchone()
-    # totalusers = str(result[0])
-    # cur.close()
-
-    # conn = mysql.connection
-    # cur = conn.cursor()
-    # cur.execute('SELECT id FROM visitors WHERE ip = (%s)', (ip,))
-    # usernumber = str(cur.fetchone()).split("(")[1].split(",")[0]
-    # cur.execute("SELECT * FROM visitors")
-    # print(cur.fetchall())
-    # cur.close()
-
     totalusers = str(len(allips))
 
     now = datetime.now()
