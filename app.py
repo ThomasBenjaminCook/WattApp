@@ -136,6 +136,8 @@ def home():
         datasource.session.add(iptoinsert)
         datasource.session.commit()
 
+    youriprow = List.query.filter_by(ip=theip).first()
+    
     usernumber = str(youriprow.id)
     totalusers = str(len(allips))
 
