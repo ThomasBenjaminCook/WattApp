@@ -111,10 +111,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 datasource = SQLAlchemy(app)
 
-#Need to create table
-
 # def ip_exists(ip):
-#     conn = db.connection
+#     conn = datasource.connection
 #     cur = conn.cursor()
 #     cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
 #     result = cur.fetchone()[0]
@@ -128,17 +126,20 @@ class List(datasource.Model):
     id = datasource.Column(datasource.Integer, primary_key=True)
     ip = datasource.Column(datasource.String(4096))
 
-datasource.create_all()
-
 def home():
+    iptoinsert = List(ip=69)
+    datasource.session.add(iptoinsert)
+    datasource.session.commit()
+
     # if request.headers.getlist("X-Forwarded-For"):
     #     ip = request.headers.getlist("X-Forwarded-For")[0]
     # else:
     #     ip = request.remote_addr
+
     # if not ip_exists(ip):
-    #     conn = mysql.connection
+    #     conn = datasource.connection
     #     cur = conn.cursor()
-    #     cur.execute("INSERT INTO visitors (ip) VALUES (%s)", (ip,))
+    #     cur.execute("INSERT INTO ipness (ip) VALUES (%s)", (ip,))
     #     conn.commit()
     #     cur.close()
 
