@@ -127,14 +127,15 @@ class List(datasource.Model):
 @app.route("/")
 
 def home():
-    iptoinsert = List(ip=69)
+
+    if request.headers.getlist("X-Forwarded-For"):
+        theip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        theip = request.remote_addr
+
+    iptoinsert = List(ip=theip)
     datasource.session.add(iptoinsert)
     datasource.session.commit()
-
-    # if request.headers.getlist("X-Forwarded-For"):
-    #     ip = request.headers.getlist("X-Forwarded-For")[0]
-    # else:
-    #     ip = request.remote_addr
 
     # if not ip_exists(ip):
     #     conn = datasource.connection
