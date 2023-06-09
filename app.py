@@ -127,9 +127,9 @@ class List(datasource.Model):
     ip = datasource.Column(datasource.String(4096))
 
 def home():
-    iptoinsert = List(ip=69)
-    datasource.session.add(iptoinsert)
-    datasource.session.commit()
+    #iptoinsert = List(ip=69)
+    #datasource.session.add(iptoinsert)
+    #datasource.session.commit()
 
     # if request.headers.getlist("X-Forwarded-For"):
     #     ip = request.headers.getlist("X-Forwarded-For")[0]
