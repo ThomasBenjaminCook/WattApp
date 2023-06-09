@@ -137,7 +137,7 @@ def home():
     datasource.session.add(iptoinsert)
     datasource.session.commit()
 
-    columnaccess = List.query.filter_by(ip='103.131.14.19').all()
+    columnaccess = List.query.all()
 
     # if not ip_exists(ip):
     #     conn = datasource.connection
