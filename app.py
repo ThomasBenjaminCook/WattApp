@@ -164,7 +164,7 @@ def home():
     usernumber = "1"
     totalusers = "1"
 
-    totalusers = len(columnaccess)
+    totalusers = str(len(columnaccess))
 
     now = datetime.now()
     nowplus = now + timedelta(hours = 10)
