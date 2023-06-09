@@ -128,6 +128,8 @@ class List(datasource.Model):
     id = datasource.Column(datasource.Integer, primary_key=True)
     ip = datasource.Column(datasource.String(4096))
 
+datasource.create_all()
+
 def home():
     # if request.headers.getlist("X-Forwarded-For"):
     #     ip = request.headers.getlist("X-Forwarded-For")[0]
