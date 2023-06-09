@@ -139,7 +139,7 @@
       <div class="displaytime">@</div>
     </div>
     <div class="userstats">So far, @ people have used Watt App.</br>(You were number @)</div>
-    <b>WATT</br>APP</b>
+    <b>WATT</br>APP</br>@</b>
     <div class="rectangleright">
       Tomorrow
       @

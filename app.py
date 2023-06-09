@@ -157,6 +157,6 @@ def home():
     day2insertclassstringred, day2insertdivsstringred = makebox("red","right",rightfile,0.5,3)
     day2insertclassstringgreen, day2insertdivsstringgreen = makebox("green","right",rightfile,1,3)
 
-    implemented = stringinserter(lines,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
+    implemented = stringinserter(lines,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,theip,day2insertdivsstringred+day2insertdivsstringgreen])
 
     return implemented
