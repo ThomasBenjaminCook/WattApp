@@ -122,6 +122,12 @@ datasource = SQLAlchemy(app)
 #     return result > 0
 
 @app.route("/")
+
+class List(datasource.Model):
+    __tablename__ = "ipness"
+    id = datasource.Column(datasource.Integer, primary_key=True)
+    ip = datasource.Column(datasource.String(4096))
+
 def home():
     # if request.headers.getlist("X-Forwarded-For"):
     #     ip = request.headers.getlist("X-Forwarded-For")[0]
