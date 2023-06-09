@@ -109,24 +109,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
+datasource = SQLAlchemy(app)
 
-#with app.app_context():
-    #conn = mysql.connection
-    #cur = conn.cursor()
-    #cur.execute('''CREATE TABLE IF NOT EXISTS visitors
-    #           (id INT PRIMARY KEY AUTO_INCREMENT,
-    #            ip VARCHAR(50))''')
-    #conn.commit()
-    #cur.close()
+#Need to create table
 
-#def ip_exists(ip):
-#    conn = mysql.connection
-#    cur = conn.cursor()
-#    cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
-#    result = cur.fetchone()[0]
-#    cur.close()
-#    return result > 0
+# def ip_exists(ip):
+#     conn = db.connection
+#     cur = conn.cursor()
+#     cur.execute("SELECT COUNT(*) FROM visitors WHERE ip = (%s)", (ip,))
+#     result = cur.fetchone()[0]
+#     cur.close()
+#     return result > 0
 
 @app.route("/")
 def home():
