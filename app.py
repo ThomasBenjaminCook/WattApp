@@ -125,6 +125,9 @@ def home():
     else:
         theip = request.remote_addr
 
+    datasource.session.delete.all()
+    datasource.session.commit()
+
     allips = List.query.all()
     youriprow = List.query.filter_by(ip=theip).first()
 
