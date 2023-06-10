@@ -135,6 +135,7 @@ def home():
             iptoinsert = List(ip=theip, provider=request.form["provider"])
             datasource.session.add(iptoinsert)
             datasource.session.commit()
+            return redirect("https://thomasappmaker.pythonanywhere.com", code=302)
         else:
             return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
 
