@@ -8,10 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 THIS_FOLDER = Path(__file__).parent.resolve()
 
-with open(THIS_FOLDER / "style.txt") as f:
-    lines = f.readlines()
-lines = (" ").join(lines)
-
 def stringinserter(string, insertables):
     array = string.split("@")
     outputarray = []
@@ -117,8 +113,21 @@ class List(datasource.Model):
     ip = datasource.Column(datasource.String(4096))
 
 @app.route("/")
-
 def home():
+    with open(THIS_FOLDER / "page1.txt") as f:
+        lines = f.readlines()
+    lines = (" ").join(lines)
+
+    implemented = stringinserter(lines,[])
+
+    return implemented
+
+@app.route("/data")
+def data():
+
+    with open(THIS_FOLDER / "page2.txt") as f:
+        lines = f.readlines()
+    lines = (" ").join(lines)
 
     if request.headers.getlist("X-Forwarded-For"):
         theip = request.headers.getlist("X-Forwarded-For")[0]
