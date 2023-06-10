@@ -153,11 +153,7 @@ def data():
     youriprow = List.query.filter_by(ip=theip).first()
 
     if youriprow is None:
-        iptoinsert = List(ip=theip)
-        datasource.session.add(iptoinsert)
-        datasource.session.commit()
-
-    youriprow = List.query.filter_by(ip=theip).first()
+        return redirect("https://thomasappmaker.pythonanywhere.com", code=302)
 
     usernumber = str(youriprow.id-22)
     totalusers = str(len(allips))
