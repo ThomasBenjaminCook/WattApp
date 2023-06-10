@@ -1,10 +1,9 @@
 <h1>
-    This is home.html
+    Welcome to WattApp
 </h1>
+It would really help me if you told me the name of your energy provider.
 <form method="post">
-  Name: <input name="name"/>
-  <br/><br/>
-  Email: <input name="email"/>
+  Provider: <input name="provider"/>
   <br/><br/>
   <button type="submit">Submit</button>
 </form>

@@ -111,6 +111,7 @@ class List(datasource.Model):
     __tablename__ = "ipness"
     id = datasource.Column(datasource.Integer, primary_key=True)
     ip = datasource.Column(datasource.String(4096))
+    provider = datasource.Column(datasource.String(4096))
 
 with open(THIS_FOLDER / "page1.txt") as f:
     lines1 = f.readlines()
@@ -131,7 +132,7 @@ def home():
         youriprow = List.query.filter_by(ip=theip).first()
 
         if youriprow is None:
-            iptoinsert = List(ip=request.form["email"])
+            iptoinsert = List(ip=theip, provider=request.form["provider"])
             datasource.session.add(iptoinsert)
             datasource.session.commit()
         else:
