@@ -145,6 +145,11 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
+            elif  request.form.get('action3') == 'no idea':
+                iptoinsert = List(ip=theip, provider="idk")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
     if(youriprow is None):
         return lines1
     else:
@@ -163,7 +168,7 @@ def data():
     if youriprow is None:
         return redirect("https://thomasappmaker.pythonanywhere.com")
 
-    usernumber = str(youriprow.id-22)
+    usernumber = str(youriprow.id-37)
     totalusers = str(len(allips))
 
     now = datetime.now()

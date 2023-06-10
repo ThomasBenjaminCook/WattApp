@@ -6,5 +6,6 @@ It would really help me if you told me the name of your energy provider.
     <input type="submit" value="AGL" name="action1"/>
     <input type="submit" value="Origin" name="action2"/>
     <input type="submit" value="Red" name="action3"/>
+    <input type="submit" value="no idea" name="action4"/>
 </form>
 
