@@ -2,7 +2,7 @@ import pandas
 import statistics
 import random
 from datetime import datetime, timedelta
-from flask import Flask, request
+from flask import Flask, request, redirect
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
 
@@ -112,23 +112,37 @@ class List(datasource.Model):
     id = datasource.Column(datasource.Integer, primary_key=True)
     ip = datasource.Column(datasource.String(4096))
 
-@app.route("/")
-def home():
-    with open(THIS_FOLDER / "page1.txt") as f:
-        lines = f.readlines()
-    lines = (" ").join(lines)
+with open(THIS_FOLDER / "page1.txt") as f:
+    lines1 = f.readlines()
+lines1 = (" ").join(lines1)
 
-    implemented = stringinserter(lines,[])
+with open(THIS_FOLDER / "page2.txt") as f:
+    lines2 = f.readlines()
+lines2 = (" ").join(lines2)
+
+@app.route("/", methods = ["GET","POST"])
+def home():
+    if request.method == "POST":
+        if request.headers.getlist("X-Forwarded-For"):
+            theip = request.headers.getlist("X-Forwarded-For")[0]
+        else:
+            theip = request.remote_addr
+
+        youriprow = List.query.filter_by(ip=theip).first()
+
+        if youriprow is None:
+            iptoinsert = List(ip=request.form["email"])
+            datasource.session.add(iptoinsert)
+            datasource.session.commit()
+        else:
+            return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+
+        implemented = stringinserter(lines1,[])
 
     return implemented
 
 @app.route("/data")
 def data():
-
-    with open(THIS_FOLDER / "page2.txt") as f:
-        lines = f.readlines()
-    lines = (" ").join(lines)
-
     if request.headers.getlist("X-Forwarded-For"):
         theip = request.headers.getlist("X-Forwarded-For")[0]
     else:
@@ -166,6 +180,6 @@ def data():
     day2insertclassstringred, day2insertdivsstringred = makebox("red","right",rightfile,0.5,3)
     day2insertclassstringgreen, day2insertdivsstringgreen = makebox("green","right",rightfile,1,3)
 
-    implemented = stringinserter(lines,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
+    implemented = stringinserter(lines2,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
 
     return implemented
