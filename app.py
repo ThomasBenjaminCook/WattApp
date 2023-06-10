@@ -152,7 +152,7 @@ def home():
             ready = "yes"
 
     if(ready == "no"):
-        return lines1
+        return stringinserter(lines1,youriprow)
     else:
         redirect("https://thomasappmaker.pythonanywhere.com/data")
 

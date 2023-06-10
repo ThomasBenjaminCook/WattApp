@@ -1,7 +1,7 @@
 <h1>
     Welcome to WattApp
 </h1>
-It would really help me if you told me the name of your energy provider.
+It would really help me if you told me the name of your energy provider. @
 <form method="post" action="/">
     <input type="submit" value="AGL" name="action1"/>
     <input type="submit" value="Origin" name="action2"/>
