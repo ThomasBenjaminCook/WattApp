@@ -123,7 +123,6 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
-    ready = 'no'
     if request.method == "POST":
         if request.headers.getlist("X-Forwarded-For"):
             theip = request.headers.getlist("X-Forwarded-For")[0]
@@ -133,19 +132,25 @@ def home():
         youriprow = List.query.filter_by(ip=theip).first()
 
         if youriprow is None:
-            iptoinsert = List(ip=theip, provider=request.form["provider"])
-            datasource.session.add(iptoinsert)
-            datasource.session.commit()
-            ready = "yes"
+            if request.form.get('action1') == 'AGL':
+                iptoinsert = List(ip=theip, provider="AGL")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+            elif  request.form.get('action2') == 'Origin':
+                iptoinsert = List(ip=theip, provider="Origin")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+            elif  request.form.get('action3') == 'Red':
+                iptoinsert = List(ip=theip, provider="Red")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
         else:
             return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
 
-    implemented = stringinserter(lines1,[])
-
-    if ready == 'no':
-        return implemented
-    else:
-        return redirect("https://thomasappmaker.pythonanywhere.com", code=302)
+    return lines1
 
 @app.route("/data")
 def data():
