@@ -123,15 +123,12 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
-    ready = "no"
-    if request.method == "POST":
-        if request.headers.getlist("X-Forwarded-For"):
+    if request.headers.getlist("X-Forwarded-For"):
             theip = request.headers.getlist("X-Forwarded-For")[0]
-        else:
+    else:
             theip = request.remote_addr
-
-        youriprow = List.query.filter_by(ip=theip).first()
-
+    youriprow = List.query.filter_by(ip=theip).first()
+    if request.method == "POST":
         if youriprow is None:
             if request.form.get('action1') == 'AGL':
                 iptoinsert = List(ip=theip, provider="AGL")
@@ -148,11 +145,8 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-        else:
-            ready = "yes"
-
-    if(ready == "no"):
-        return stringinserter(lines1,youriprow)
+    if(youriprow is None):
+        return lines1
     else:
         redirect("https://thomasappmaker.pythonanywhere.com/data")
 
