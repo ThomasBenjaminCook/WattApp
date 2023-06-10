@@ -123,6 +123,7 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
+    ready = "no"
     if request.method == "POST":
         if request.headers.getlist("X-Forwarded-For"):
             theip = request.headers.getlist("X-Forwarded-For")[0]
@@ -148,9 +149,12 @@ def home():
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
         else:
-            return redirect("https://thomasappmaker.pythonanywhere.com/data")
+            ready = "yes"
 
-    return lines1
+    if(ready == "no"):
+        return lines1
+    else:
+        redirect("https://thomasappmaker.pythonanywhere.com/data")
 
 @app.route("/data")
 def data():
