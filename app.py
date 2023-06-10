@@ -136,19 +136,19 @@ def home():
                 iptoinsert = List(ip=theip, provider="AGL")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
-                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action2') == 'Origin':
                 iptoinsert = List(ip=theip, provider="Origin")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
-                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action3') == 'Red':
                 iptoinsert = List(ip=theip, provider="Red")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
-                return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
         else:
-            return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
+            return redirect("https://thomasappmaker.pythonanywhere.com/data")
 
     return lines1
 
@@ -163,7 +163,7 @@ def data():
     youriprow = List.query.filter_by(ip=theip).first()
 
     if youriprow is None:
-        return redirect("https://thomasappmaker.pythonanywhere.com", code=302)
+        return redirect("https://thomasappmaker.pythonanywhere.com")
 
     usernumber = str(youriprow.id-22)
     totalusers = str(len(allips))
