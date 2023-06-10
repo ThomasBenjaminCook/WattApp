@@ -137,7 +137,7 @@ def home():
         else:
             return redirect("https://thomasappmaker.pythonanywhere.com/data", code=302)
 
-        implemented = stringinserter(lines1,[])
+    implemented = stringinserter(lines1,[])
 
     return implemented
 
