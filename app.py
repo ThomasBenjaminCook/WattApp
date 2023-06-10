@@ -145,7 +145,7 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-            elif  request.form.get('action3') == 'no idea':
+            elif  request.form.get('action4') == 'no idea':
                 iptoinsert = List(ip=theip, provider="idk")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
