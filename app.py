@@ -148,7 +148,7 @@ def home():
     if(youriprow is None):
         return lines1
     else:
-        redirect("https://thomasappmaker.pythonanywhere.com/data")
+        return redirect("https://thomasappmaker.pythonanywhere.com/data")
 
 @app.route("/data")
 def data():
