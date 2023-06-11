@@ -176,6 +176,7 @@ def data():
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
 
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
+    date = formatted_now.split(" ")[0]
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
@@ -190,6 +191,6 @@ def data():
     day2insertclassstringred, day2insertdivsstringred = makebox("red","right",rightfile,0.5,3)
     day2insertclassstringgreen, day2insertdivsstringgreen = makebox("green","right",rightfile,1,3)
 
-    implemented = stringinserter(lines2,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
+    implemented = stringinserter(lines2,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,date,day2insertdivsstringred+day2insertdivsstringgreen])
 
     return implemented
