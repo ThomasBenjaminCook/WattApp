@@ -11,6 +11,8 @@ input{
     width: 60vw;
     padding: 5vh 2vw;
     -webkit-appearance: none;
+    background-color: white;
+    color: black;
 }
 
 </style>
