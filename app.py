@@ -164,7 +164,6 @@ def data():
         theip = request.remote_addr
 
     allips = List.query.all()
-    allipspandas = pandas.DataFrame(List.query.all())
     youriprow = List.query.filter_by(ip=theip).first()
 
     if youriprow is None:
@@ -181,8 +180,8 @@ def data():
 
     date = now.strftime("%d%m%y")
 
-    for row in (allipspandas.iloc[:,3]).tolist():
-        print(row)
+    for row in allips:
+        print(List(row))
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
