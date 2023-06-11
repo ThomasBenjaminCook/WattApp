@@ -113,6 +113,7 @@ def refresh_login_count(datenumber,allips,theip):
         person_usage_number = int(person[0].split("_")[0])
         if((person_last_used_date < datenumber) and (theip == person[-1])):
             person_usage_number += 1
+            output_number = str(person_usage_number)
             data_refreshed.append([str(person_usage_number)+"_"+str(datenumber),person[-1]])
         else:
             data_refreshed.append([str(person_usage_number)+"_"+str(person_last_used_date),person[-1]])
@@ -120,6 +121,8 @@ def refresh_login_count(datenumber,allips,theip):
     for newperson in data_refreshed:
         datasource.session.query(List).filter(List.ip == newperson[-1]).update({'uses':newperson[0]})
         datasource.session.commit()
+
+    return(output_number)
 
 app = Flask(__name__)
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
@@ -202,7 +205,7 @@ def data():
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
 
-    refresh_login_count(int(now.strftime("%d%m%y")),allips,theip)
+    use_times = refresh_login_count(int(now.strftime("%d%m%y")),allips,theip)
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
@@ -217,6 +220,6 @@ def data():
     day2insertclassstringred, day2insertdivsstringred = makebox("red","right",rightfile,0.5,3)
     day2insertclassstringgreen, day2insertdivsstringgreen = makebox("green","right",rightfile,1,3)
 
-    implemented = stringinserter(lines2,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,day2insertdivsstringred+day2insertdivsstringgreen])
+    implemented = stringinserter(lines2,[str(mapped-3.4),str(mapped),day1insertclassstringred+day1insertclassstringgreen+day2insertclassstringred+day2insertclassstringgreen,day1insertdivsstringred+day1insertdivsstringgreen,displaytime,totalusers,usernumber,use_times,day2insertdivsstringred+day2insertdivsstringgreen])
 
     return implemented
