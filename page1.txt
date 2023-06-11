@@ -4,8 +4,11 @@
 It would really help me if you told me the name of your energy provider.
 <form method="post" action="/">
     <input type="submit" value="AGL" name="action1"/>
-    <input type="submit" value="Origin" name="action2"/>
-    <input type="submit" value="Red" name="action3"/>
-    <input type="submit" value="no idea" name="action4"/>
+    <input type="submit" value="Origin Energy" name="action2"/>
+    <input type="submit" value="Red Energy" name="action3"/>
+    <input type="submit" value="EnergyAustralia" name="action4"/>
+    <input type="submit" value="ActewAGL" name="action5"/>
+    <input type="submit" value="None of the Above" name="action6"/>
+    <input type="submit" value="I don't know" name="action7"/>
 </form>
 

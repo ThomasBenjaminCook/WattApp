@@ -169,17 +169,32 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-            elif  request.form.get('action2') == 'Origin':
+            elif  request.form.get('action2') == 'Origin Energy':
                 iptoinsert = List(ip=theip, provider="Origin")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-            elif  request.form.get('action3') == 'Red':
+            elif  request.form.get('action3') == 'Red Energy':
                 iptoinsert = List(ip=theip, provider="Red")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-            elif  request.form.get('action4') == 'no idea':
+            elif  request.form.get('action4') == "EnergyAustralia":
+                iptoinsert = List(ip=theip, provider="EnergyAus")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
+            elif  request.form.get('action5') == "ActewAGL":
+                iptoinsert = List(ip=theip, provider="ActewAGL")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
+            elif  request.form.get('action6') == "None of the Above":
+                iptoinsert = List(ip=theip, provider="None")
+                datasource.session.add(iptoinsert)
+                datasource.session.commit()
+                return redirect("https://thomasappmaker.pythonanywhere.com/data")
+            elif  request.form.get('action7') == "I don't know":
                 iptoinsert = List(ip=theip, provider="idk")
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
