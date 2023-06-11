@@ -7,6 +7,10 @@ form {
     display: inline-block;
 }
 
+h1{
+    font-size: 50vw;
+}
+
 input{
     width: 60vw;
     padding: 5vh 2vw;
@@ -14,7 +18,7 @@ input{
     background-color: white;
     color: black;
     border: 1vw solid black;
-    font: 100%;
+    font-size: 100%;
 }
 
 </style>
