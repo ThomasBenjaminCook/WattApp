@@ -7,6 +7,10 @@ form {
     display: inline-block;
 }
 
+.action1, .action2{
+    background-color: #4CAF50;
+}
+
 </style>
 
 <h1>
