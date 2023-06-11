@@ -8,7 +8,7 @@ form {
 }
 
 h1{
-    font-size: 8vh;
+    font-size: 5vh;
 }
 
 input{
@@ -18,7 +18,7 @@ input{
     background-color: white;
     color: black;
     border: 1vw solid black;
-    font-size: 5vh;
+    font-size: 3vh;
 }
 
 </style>
