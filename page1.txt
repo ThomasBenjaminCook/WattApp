@@ -9,7 +9,7 @@ form {
 
 input{
     width: 60vw;
-    padding: 10vh 0px;
+    padding: 5vh 2vw;
 }
 
 </style>
