@@ -12,7 +12,7 @@ form {
 <h1>
     Welcome to WattApp
 </h1>
-Who is your energy provider?
+Who is your energy provider?</br></br>
 <body>
 <form method="post" action="/">
     </br>
