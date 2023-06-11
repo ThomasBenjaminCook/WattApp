@@ -113,7 +113,6 @@ def refresh_login_count(datenumber,allips,theip):
         person_usage_number = int(person[0].split("_")[0])
         if((person_last_used_date < datenumber) and (theip == person[-1])):
             person_usage_number += 1
-            output_number = str(person_usage_number)
             data_refreshed.append([str(person_usage_number)+"_"+str(datenumber),person[-1]])
         else:
             data_refreshed.append([str(person_usage_number)+"_"+str(person_last_used_date),person[-1]])
@@ -121,6 +120,10 @@ def refresh_login_count(datenumber,allips,theip):
     for newperson in data_refreshed:
         datasource.session.query(List).filter(List.ip == newperson[-1]).update({'uses':newperson[0]})
         datasource.session.commit()
+
+    for finalperson in data_refreshed:
+        if(theip == finalperson[-1]):
+            output_number = finalperson[0].split("_")[0]
 
     return(output_number)
 
