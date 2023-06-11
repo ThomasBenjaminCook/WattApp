@@ -7,7 +7,7 @@ form {
     display: inline-block;
 }
 
-.action1, .action2{
+.action1{
     background-color: #4CAF50;
 }
 
