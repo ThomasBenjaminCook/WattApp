@@ -7,7 +7,7 @@ form {
     display: inline-block;
 }
 
-.action1{
+.submit{
     background-color: #4CAF50;
 }
 
