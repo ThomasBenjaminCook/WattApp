@@ -180,8 +180,13 @@ def data():
 
     date = now.strftime("%d%m%y")
 
-    for row in allips.uses:
-        print(row)
+    ballsdeep = 0
+
+    for row in allips:
+        print(row.uses)
+        print(ballsdeep)
+        ballsdeep+=1
+
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
