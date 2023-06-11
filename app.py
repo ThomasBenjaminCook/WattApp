@@ -157,45 +157,43 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
-    if request.headers.getlist("X-Forwarded-For"):
-            theip = request.headers.getlist("X-Forwarded-For")[0]
-    else:
-            theip = request.remote_addr
+    now_times = (datetime.now()).strftime("%d%m%y")
+    theip = find_ip()
     youriprow = List.query.filter_by(ip=theip).first()
     if request.method == "POST":
         if youriprow is None:
             if request.form.get('action1') == 'AGL':
-                iptoinsert = List(ip=theip, provider="AGL")
+                iptoinsert = List(ip=theip, provider="AGL", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action2') == 'Origin Energy':
-                iptoinsert = List(ip=theip, provider="Origin")
+                iptoinsert = List(ip=theip, provider="Origin", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action3') == 'Red Energy':
-                iptoinsert = List(ip=theip, provider="Red")
+                iptoinsert = List(ip=theip, provider="Red", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action4') == "EnergyAustralia":
-                iptoinsert = List(ip=theip, provider="EnergyAus")
+                iptoinsert = List(ip=theip, provider="EnergyAus", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action5') == "ActewAGL":
-                iptoinsert = List(ip=theip, provider="ActewAGL")
+                iptoinsert = List(ip=theip, provider="ActewAGL", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action6') == "None of the Above":
-                iptoinsert = List(ip=theip, provider="None")
+                iptoinsert = List(ip=theip, provider="None", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action7') == "I don't know":
-                iptoinsert = List(ip=theip, provider="idk")
+                iptoinsert = List(ip=theip, provider="idk", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
