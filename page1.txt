@@ -12,8 +12,8 @@ form {
 <h1>
     Welcome to WattApp
 </h1>
-<body>
 Who is your energy provider?
+<body>
 <form method="post" action="/">
     </br>
     <input type="submit" value="AGL" name="action1"/>
