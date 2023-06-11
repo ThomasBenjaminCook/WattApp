@@ -181,7 +181,7 @@ def data():
 
     date = now.strftime("%d%m%y")
 
-    for row in allipspandas["uses"]:
+    for row in (allipspandas.iloc[:,3]).tolist():
         print(row)
 
     dayofweek = formatted_now.split(",")[0]
