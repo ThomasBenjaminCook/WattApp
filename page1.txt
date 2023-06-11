@@ -11,6 +11,10 @@ h1{
     font-size: 5vh;
 }
 
+h2{
+    font-size: 4vh;
+}
+
 input{
     width: 60vw;
     padding: 5vh 2vw;
@@ -26,7 +30,9 @@ input{
 <h1>
     Welcome to WattApp
 </h1>
-Who is your energy provider?</br></br>
+<h2>
+    Click your energy provider.
+</h2>
 <body>
 <form method="post" action="/">
     </br>
