@@ -1,8 +1,21 @@
+<style type="text/css">
+
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+
+</style>
+
 <h1>
     Welcome to WattApp
 </h1>
-Who is your energy provider?</br>
+<body>
+Who is your energy provider?
 <form method="post" action="/">
+    </br>
     <input type="submit" value="AGL" name="action1"/>
     </br></br>
     <input type="submit" value="Origin Energy" name="action2"/>
@@ -17,4 +30,5 @@ Who is your energy provider?</br>
     </br></br>
     <input type="submit" value="I don't know" name="action7"/>
 </form>
+</body>
 
