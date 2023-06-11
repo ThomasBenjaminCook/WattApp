@@ -1,14 +1,20 @@
 <h1>
     Welcome to WattApp
 </h1>
-It would really help me if you told me the name of your energy provider.
+Who is your energy provider?
 <form method="post" action="/">
     <input type="submit" value="AGL" name="action1"/>
+    </br>
     <input type="submit" value="Origin Energy" name="action2"/>
+    </br>
     <input type="submit" value="Red Energy" name="action3"/>
+    </br>
     <input type="submit" value="EnergyAustralia" name="action4"/>
+    </br>
     <input type="submit" value="ActewAGL" name="action5"/>
+    </br>
     <input type="submit" value="None of the Above" name="action6"/>
+    </br>
     <input type="submit" value="I don't know" name="action7"/>
 </form>
 
