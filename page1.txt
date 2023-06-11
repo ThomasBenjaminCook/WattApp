@@ -10,7 +10,7 @@ form {
 input{
     width: 60vw;
     padding: 5vh 2vw;
-    webkit-appearance: none;
+    -webkit-appearance: none;
 }
 
 </style>
