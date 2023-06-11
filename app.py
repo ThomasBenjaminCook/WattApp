@@ -94,6 +94,12 @@ def dayswitch(day):
     else:
         return "sundayspredictions.csv", "mondayspredictions.csv"
 
+def find_ip():
+    if request.headers.getlist("X-Forwarded-For"):
+        return(request.headers.getlist("X-Forwarded-For")[0])
+    else:
+        return(request.remote_addr)
+
 app = Flask(__name__)
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="ThomasAppMaker",
@@ -158,10 +164,7 @@ def home():
 
 @app.route("/data")
 def data():
-    if request.headers.getlist("X-Forwarded-For"):
-        theip = request.headers.getlist("X-Forwarded-For")[0]
-    else:
-        theip = request.remote_addr
+    theip = find_ip()
 
     allips = List.query.all()
     youriprow = List.query.filter_by(ip=theip).first()
