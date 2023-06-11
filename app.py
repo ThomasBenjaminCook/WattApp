@@ -100,6 +100,27 @@ def find_ip():
     else:
         return(request.remote_addr)
 
+def refresh_login_count(datenumber,allips,theip):
+    data_to_edit = []
+
+    for row in allips:
+        data_to_edit.append([row.uses,row.ip])
+
+    data_refreshed = []
+
+    for person in data_to_edit:
+        person_last_used_date = int(person[0].split("_")[-1])
+        person_usage_number = int(person[0].split("_")[0])
+        if((person_last_used_date < datenumber) and (theip == person[-1])):
+            person_usage_number += 1
+            data_refreshed.append([str(person_usage_number)+"_"+str(datenumber),person[-1]])
+        else:
+            data_refreshed.append([str(person_usage_number)+"_"+str(person_last_used_date),person[-1]])
+
+    for newperson in data_refreshed:
+        datasource.session.query(List).filter(List.ip == newperson[-1]).update({'uses':newperson[0]})
+        datasource.session.commit()
+
 app = Flask(__name__)
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="ThomasAppMaker",
@@ -176,32 +197,12 @@ def data():
     totalusers = str(len(allips))
 
     now = datetime.now()
+
     nowplus = now + timedelta(hours = 10)
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
-
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
 
-    datenumber = int(now.strftime("%d%m%y"))
-
-    data_to_edit = []
-
-    for row in allips:
-        data_to_edit.append([row.uses,row.ip])
-
-    data_refreshed = []
-
-    for person in data_to_edit:
-        person_last_used_date = int(person[0].split("_")[-1])
-        person_usage_number = int(person[0].split("_")[0])
-        if((person_last_used_date < datenumber) and (theip == person[-1])):
-            person_usage_number += 1
-            data_refreshed.append([str(person_usage_number)+"_"+str(datenumber),person[-1]])
-        else:
-            data_refreshed.append([str(person_usage_number)+"_"+str(person_last_used_date),person[-1]])
-
-    for newperson in data_refreshed:
-        datasource.session.query(List).filter(List.ip == newperson[-1]).update({'uses':newperson[0]})
-        datasource.session.commit()
+    refresh_login_count(int(now.strftime("%d%m%y")),allips,theip)
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
