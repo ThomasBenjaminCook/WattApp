@@ -176,7 +176,7 @@ def data():
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
 
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
-    date = formatted_now.split(" ")[0]
+    date = (now.strftime()).split(" ")[0]
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
