@@ -212,7 +212,7 @@ def data():
     if youriprow is None:
         return redirect("https://thomasappmaker.pythonanywhere.com")
 
-    usernumber = str(youriprow.id-54)
+    usernumber = str(youriprow.id-58)
     totalusers = str(len(allips))
 
     now = datetime.now()
