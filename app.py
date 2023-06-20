@@ -95,10 +95,10 @@ def dayswitch(day):
         return "sundayspredictions.csv", "mondayspredictions.csv"
 
 def find_ip():
-    if request.headers.getlist("X-Forwarded-For"):
-        return(request.headers.getlist("X-Forwarded-For")[0])
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        return(request.environ['REMOTE_ADDR'])
     else:
-        return(request.remote_addr)
+        return(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
 
 def refresh_login_count(datenumber,allips,theip):
     data_to_edit = []
