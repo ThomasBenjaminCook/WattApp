@@ -94,12 +94,6 @@ def dayswitch(day):
     else:
         return "sundayspredictions.csv", "mondayspredictions.csv"
 
-def find_ip():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        return(request.environ['REMOTE_ADDR'])
-    else:
-        return(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
-
 def refresh_login_count(datenumber,allips,theip):
     data_to_edit = []
 
@@ -143,7 +137,7 @@ datasource = SQLAlchemy(app)
 class List(datasource.Model):
     __tablename__ = "ipness"
     id = datasource.Column(datasource.Integer, primary_key=True)
-    ip = datasource.Column(datasource.String(4096))
+    my_id = datasource.Column(datasource.String(4096))
     provider = datasource.Column(datasource.String(4096))
     uses = datasource.Column(datasource.String(4096))
 
@@ -159,46 +153,47 @@ lines2 = (" ").join(lines2)
 def home():
 
     now_times = (datetime.now()).strftime("%d%m%y")
-    theip = find_ip()
-    youriprow = List.query.filter_by(ip=theip).first()
+
+    hascookie = request.cookies.get('Which_User')
+
     if request.method == "POST":
-        if youriprow is None:
+        if hascookie is None:
             if request.form.get('action1') == 'AGL':
-                iptoinsert = List(ip=theip, provider="AGL", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="AGL", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action2') == 'Origin Energy':
-                iptoinsert = List(ip=theip, provider="Origin", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="Origin", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action3') == 'Red Energy':
-                iptoinsert = List(ip=theip, provider="Red", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="Red", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action4') == "EnergyAustralia":
-                iptoinsert = List(ip=theip, provider="EnergyAus", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="EnergyAus", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action5') == "ActewAGL":
-                iptoinsert = List(ip=theip, provider="ActewAGL", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="ActewAGL", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action6') == "None of the Above":
-                iptoinsert = List(ip=theip, provider="None", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="None", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
             elif  request.form.get('action7') == "I don't know":
-                iptoinsert = List(ip=theip, provider="idk", uses=("1_"+now_times))
+                iptoinsert = List(my_id="1", provider="idk", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-    if(youriprow is None):
+    if(hascookie is None):
         response_object = make_response(lines1)
         response_object.set_cookie("Which_User", value = "1", max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
@@ -207,10 +202,8 @@ def home():
 
 @app.route("/data")
 def data():
-    theip = find_ip()
-
     allips = List.query.all()
-    youriprow = List.query.filter_by(ip=theip).first()
+    youriprow = List.query.filter_by(my_id="1").first()
 
     if youriprow is None:
         return redirect("https://thomasappmaker.pythonanywhere.com")
@@ -224,7 +217,7 @@ def data():
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
 
-    use_times = refresh_login_count(int(now.strftime("%d%m%y")),allips,theip)
+    use_times = refresh_login_count(int(now.strftime("%d%m%y")),allips,"1")
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
