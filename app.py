@@ -2,7 +2,7 @@ import pandas
 import statistics
 import random
 from datetime import datetime, timedelta
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, make_response
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
 
@@ -157,6 +157,10 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
+
+    make_response.set_cookie("Which_User", value = 1, max_age = None, expires = None, path = '/', domain = None, 
+                    secure = None, httponly = False)
+
     now_times = (datetime.now()).strftime("%d%m%y")
     theip = find_ip()
     youriprow = List.query.filter_by(ip=theip).first()
