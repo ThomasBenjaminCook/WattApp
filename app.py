@@ -158,7 +158,7 @@ def home():
     print(hascookie)
 
     if request.method == "POST":
-        if hascookie is None:
+        if hascookie is 'None':
             if request.form.get('action1') == 'AGL':
                 iptoinsert = List(my_id="1", provider="AGL", uses=("1_"+now_times))
                 datasource.session.add(iptoinsert)
@@ -194,7 +194,7 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-    if(hascookie is None):
+    if(hascookie is 'None'):
         response_object = make_response(lines1)
         response_object.set_cookie("Which_User", value = "1", max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
