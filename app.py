@@ -152,8 +152,8 @@ lines2 = (" ").join(lines2)
 @app.route("/", methods = ["GET","POST"])
 def home():
 
-    # allips = List.query.all()
-    # print(allips[len(allips)-1].my_id)
+    allips = List.query.all()
+    print(allips[len(allips)-1].my_id)
 
     now_times = (datetime.now()).strftime("%d%m%y")
 
