@@ -153,7 +153,7 @@ lines2 = (" ").join(lines2)
 def home():
 
     allips = List.query.all()
-    print(allips[len(allips)].my_id)
+    print(allips[len(allips)-1].my_id)
 
     now_times = (datetime.now()).strftime("%d%m%y")
 
