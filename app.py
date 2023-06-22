@@ -196,7 +196,11 @@ def home():
                 datasource.session.add(iptoinsert)
                 datasource.session.commit()
                 return redirect("https://thomasappmaker.pythonanywhere.com/data")
-    if(hascookie is None):
+            
+    youriprow = List.query.filter_by(my_id="1").first()
+
+
+    if(youriprow is None):
         response_object = make_response(lines1)
         response_object.set_cookie("Which_User", value = "1", max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
