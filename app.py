@@ -98,7 +98,7 @@ def refresh_login_count(datenumber,allips,theip):
     data_to_edit = []
 
     for row in allips:
-        data_to_edit.append([row.uses,row.ip])
+        data_to_edit.append([row.uses,row.my_id])
 
     data_refreshed = []
 
@@ -112,7 +112,7 @@ def refresh_login_count(datenumber,allips,theip):
             data_refreshed.append([str(person_usage_number)+"_"+str(person_last_used_date),person[-1]])
 
     for newperson in data_refreshed:
-        datasource.session.query(List).filter(List.ip == newperson[-1]).update({'uses':newperson[0]})
+        datasource.session.query(List).filter(List.my_id == newperson[-1]).update({'uses':newperson[0]})
         datasource.session.commit()
 
     for finalperson in data_refreshed:
