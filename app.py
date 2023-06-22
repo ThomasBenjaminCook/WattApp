@@ -153,51 +153,55 @@ lines2 = (" ").join(lines2)
 def home():
 
     database = List.query.all()
-    next_available_id = str(int(database[len(database)-1].my_id)+1)
+
+    if(request.cookies.get('Which_User') is None):
+        next_available_id = str(int(database[len(database)-1].my_id)+1)
+    else:
+        next_available_id = request.cookies.get('Which_User')
 
     now_times = (datetime.now()).strftime("%d%m%y")
 
     if request.method == "POST":
         if request.form.get('action1') == 'AGL':
-            iptoinsert = List(my_id=next_available_id, provider="AGL", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="AGL", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action2') == 'Origin Energy':
-            iptoinsert = List(my_id=next_available_id, provider="Origin", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="Origin", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action3') == 'Red Energy':
-            iptoinsert = List(my_id=next_available_id, provider="Red", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="Red", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action4') == "EnergyAustralia":
-            iptoinsert = List(my_id=next_available_id, provider="EnergyAus", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="EnergyAus", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action5') == "ActewAGL":
-            iptoinsert = List(my_id=next_available_id, provider="ActewAGL", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="ActewAGL", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action6') == "None of the Above":
-            iptoinsert = List(my_id=next_available_id, provider="None", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="None", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action7') == "I don't know":
-            iptoinsert = List(my_id=next_available_id, provider="idk", uses=("1_"+now_times))
-            datasource.session.add(iptoinsert)
+            datatoinsert = List(my_id=next_available_id, provider="idk", uses=("1_"+now_times))
+            datasource.session.add(datatoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
             
     
-    youriprow = List.query.filter_by(my_id=request.cookies.get('Which_User')).first()
+    your_data = List.query.filter_by(my_id=request.cookies.get('Which_User')).first()
 
-    if(youriprow is None):
+    if(your_data is None):
         response_object = make_response(lines1)
         response_object.set_cookie("Which_User", value = next_available_id, max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
@@ -207,15 +211,14 @@ def home():
 @app.route("/data")
 def data():
 
-    yourcookie = request.cookies.get('Which_User')
-    allips = List.query.all()
-    youriprow = List.query.filter_by(my_id="1").first()
+    all_data = List.query.all()
+    your_row = List.query.filter_by(my_id=request.cookies.get('Which_User')).first()
 
-    if youriprow is None:
+    if your_row is None:
         return redirect("https://thomasappmaker.pythonanywhere.com")
 
-    usernumber = str(youriprow.id-58)
-    totalusers = str(len(allips))
+    usernumber = request.cookies.get('Which_User')
+    totalusers = str(len(all_data))
 
     now = datetime.now()
 
@@ -223,7 +226,7 @@ def data():
     formatted_now = nowplus.strftime("%a, %d %b, %y at %X")
     displaytime = (":").join([formatted_now.split(" ")[-1].split(":")[0],formatted_now.split(" ")[-1].split(":")[1]])
 
-    use_times = refresh_login_count(int(now.strftime("%d%m%y")),allips,"1")
+    use_times = refresh_login_count(int(now.strftime("%d%m%y")),all_data,"1")
 
     dayofweek = formatted_now.split(",")[0]
     leftfile = pandas.read_csv(THIS_FOLDER / dayswitch(dayofweek)[0])
