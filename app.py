@@ -152,53 +152,54 @@ lines2 = (" ").join(lines2)
 @app.route("/", methods = ["GET","POST"])
 def home():
 
-    allips = List.query.all()
-    print(allips[len(allips)-1].my_id)
+    database = List.query.all()
+    next_available_id = str(int(database[len(database)-1].my_id)+1)
 
     now_times = (datetime.now()).strftime("%d%m%y")
 
     if request.method == "POST":
         if request.form.get('action1') == 'AGL':
-            iptoinsert = List(my_id="1", provider="AGL", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="AGL", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action2') == 'Origin Energy':
-            iptoinsert = List(my_id="1", provider="Origin", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="Origin", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action3') == 'Red Energy':
-            iptoinsert = List(my_id="1", provider="Red", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="Red", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action4') == "EnergyAustralia":
-            iptoinsert = List(my_id="1", provider="EnergyAus", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="EnergyAus", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action5') == "ActewAGL":
-            iptoinsert = List(my_id="1", provider="ActewAGL", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="ActewAGL", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action6') == "None of the Above":
-            iptoinsert = List(my_id="1", provider="None", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="None", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
         elif  request.form.get('action7') == "I don't know":
-            iptoinsert = List(my_id="1", provider="idk", uses=("1_"+now_times))
+            iptoinsert = List(my_id=next_available_id, provider="idk", uses=("1_"+now_times))
             datasource.session.add(iptoinsert)
             datasource.session.commit()
             return redirect("https://thomasappmaker.pythonanywhere.com/data")
             
-    youriprow = List.query.filter_by(my_id="1").first()
+    
+    youriprow = List.query.filter_by(my_id=request.cookies.get('Which_User')).first()
 
     if(youriprow is None):
         response_object = make_response(lines1)
-        response_object.set_cookie("Which_User", value = "1", max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
+        response_object.set_cookie("Which_User", value = next_available_id, max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
     else:
         return redirect("https://thomasappmaker.pythonanywhere.com/data")
