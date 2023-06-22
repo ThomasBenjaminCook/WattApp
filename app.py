@@ -135,7 +135,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 datasource = SQLAlchemy(app)
 
 class List(datasource.Model):
-    __tablename__ = "ipness"
+    __tablename__ = "user_info"
     id = datasource.Column(datasource.Integer, primary_key=True)
     my_id = datasource.Column(datasource.String(4096))
     provider = datasource.Column(datasource.String(4096))
@@ -151,6 +151,10 @@ lines2 = (" ").join(lines2)
 
 @app.route("/", methods = ["GET","POST"])
 def home():
+
+    allips = List.query.all()
+    print(allips[len(allips)].my_id)
+
     now_times = (datetime.now()).strftime("%d%m%y")
 
     if request.method == "POST":
