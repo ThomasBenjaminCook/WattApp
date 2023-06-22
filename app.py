@@ -136,7 +136,7 @@ datasource = SQLAlchemy(app)
 
 class List(datasource.Model):
     __tablename__ = "user_info"
-    my_id = datasource.Column(datasource.String(4096))
+    my_id = datasource.Column(datasource.String(4096),primary_key=True)
     provider = datasource.Column(datasource.String(4096))
     uses = datasource.Column(datasource.String(4096))
 
