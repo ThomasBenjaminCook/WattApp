@@ -158,7 +158,7 @@ def home():
     print(hascookie)
 
     if request.method == "POST":
-        print("Hi1")
+        print(hascookie)
         if hascookie is None:
             print("Hi")
             if request.form.get('action1') == 'AGL':
