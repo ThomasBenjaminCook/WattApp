@@ -158,7 +158,8 @@ lines2 = (" ").join(lines2)
 @app.route("/", methods = ["GET","POST"])
 def home():
 
-    make_response.set_cookie("Which_User", value = 1, max_age = None, expires = None, path = '/', domain = None, 
+    response_object = make_response("This is a response object.")
+    response_object.set_cookie("Which_User", value = 1, max_age = None, expires = None, path = '/', domain = None, 
                     secure = None, httponly = False)
 
     now_times = (datetime.now()).strftime("%d%m%y")
