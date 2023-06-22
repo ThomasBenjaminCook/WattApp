@@ -155,6 +155,7 @@ def home():
     now_times = (datetime.now()).strftime("%d%m%y")
 
     hascookie = request.cookies.get('Which_User')
+    print(hascookie)
 
     if request.method == "POST":
         if hascookie is None:
