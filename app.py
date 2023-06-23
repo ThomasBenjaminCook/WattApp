@@ -210,6 +210,9 @@ def home():
 @app.route("/data")
 def data():
 
+    df = pandas.read_csv("thursdayspredictions.csv")
+    df.to_sql("User", con=datasource.engine, if_exists="append")
+
     all_data = List.query.all()
     your_row = List.query.filter_by(my_id=request.cookies.get('Which_User')).first()
 
