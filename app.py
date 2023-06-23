@@ -210,7 +210,7 @@ def home():
 @app.route("/data")
 def data():
 
-    df = pandas.read_csv("thursdayspredictions.csv")
+    df = pandas.read_csv(THIS_FOLDER / "thursdayspredictions.csv")
     df.to_sql("User", con=datasource.engine, if_exists="append")
 
     all_data = List.query.all()
