@@ -202,7 +202,7 @@ def home():
 
     if(your_data is None):
         response_object = make_response(lines1)
-        response_object.set_cookie("Which_User", value = next_available_id, max_age = None, expires = None, path = '/', domain = None, secure = None, httponly = False)
+        response_object.set_cookie("Which_User", value = next_available_id, max_age = 31536000, expires = None, path = '/', domain = None, secure = None, httponly = False)
         return response_object
     else:
         return redirect("https://thomasappmaker.pythonanywhere.com/data")
