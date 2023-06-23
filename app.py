@@ -217,7 +217,7 @@ def data():
         return redirect("https://thomasappmaker.pythonanywhere.com")
 
     usernumber = request.cookies.get('Which_User')
-    totalusers = str(len(all_data))
+    totalusers = str(len(all_data)-1) #Minus one because we have to insert a placeholder row to get it going.
 
     now = datetime.now()
 
